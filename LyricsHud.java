@@ -45,7 +45,7 @@ public final class LyricsHud implements HudElement {
 		long nowMs = System.currentTimeMillis();
 		long nowNs = System.nanoTime();
 
-		Track t = LyricsWorldClient.demo ? Demo.track(nowMs) : Spotify.track;
+		Track t = LyricsWorldClient.demo ? Demo.track(nowMs) : LyricsWorldClient.activeTrack();
 		List<Lyrics.Line> lines;
 		if (t == null) {
 			chunks.clear();

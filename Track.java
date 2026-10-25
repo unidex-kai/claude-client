@@ -10,6 +10,9 @@ public record Track(String id, String title, String artist, String firstArtist, 
 		if (playing) {
 			pos += nowMs - fetchedAtMs;
 		}
-		return Math.max(0, Math.min(pos, durationMs));
+		if (durationMs > 0) {
+			pos = Math.min(pos, durationMs);
+		}
+		return Math.max(0, pos);
 	}
 }

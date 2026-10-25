@@ -19,6 +19,7 @@ public final class Config {
 	public static final String[] COLOUR_NAMES = {"Purple", "Lavender", "Blue", "Pink", "Red", "Orange", "Yellow", "Teal", "Green", "White"};
 	public static final int[] COLOURS = {0xA78BFA, 0xC4B5FD, 0x60A5FA, 0xF472B6, 0xF87171, 0xFB923C, 0xFACC15, 0x2DD4BF, 0x4ADE80, 0xFFFFFF};
 	public static final String[] INTENSITY_NAMES = {"Calm", "Normal", "Hype"};
+	public static final String[] SOURCE_NAMES = {"Windows media (no login)", "Spotify login"};
 	public static final String[] PLACEMENT_NAMES = {"Scattered around you", "In front of you"};
 
 	// ---- settings ----
@@ -35,6 +36,8 @@ public final class Config {
 	public int colour = 0;
 	public int colour2 = 3;
 	public int syncOffsetMs = 0;
+	/** 0 = Windows media controls (no login), 1 = Spotify login. */
+	public int source = 0;
 
 	// ---- spotify (stored only on this PC) ----
 	public String clientId = "";

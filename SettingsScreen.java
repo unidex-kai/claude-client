@@ -32,7 +32,15 @@ public final class SettingsScreen extends Screen {
 		buttons.clear();
 
 		rows.add(new Row(() -> "Lyrics: " + onOff(c.enabled), () -> c.enabled = !c.enabled));
-		rows.add(new Row(() -> "Spotify: " + (Spotify.connected() ? "connected (click to log out)" : "log in"), () -> {
+		rows.add(new Row(() -> "Source: " + Config.SOURCE_NAMES[c.source], () -> {
+			c.source = (c.source + 1) % Config.SOURCE_NAMES.length;
+			Spotify.track = null;
+			Spotify.status = "";
+			WindowsMedia.track = null;
+			WindowsMedia.status = "";
+			WindowsMedia.apply();
+		}));
+		rows.add(new Row(() -> "Spotify login: " + (Spotify.connected() ? "connected (click to log out)" : "set up"), () -> {
 			if (Spotify.connected()) {
 				Spotify.logout();
 			} else {
@@ -103,7 +111,7 @@ public final class SettingsScreen extends Screen {
 		super.extractRenderState(g, mouseX, mouseY, delta);
 		String title = "Lyrics World";
 		g.text(this.font, title, (this.width - this.font.width(title)) / 2, 14, 0xFFFFFFFF, true);
-		String st = Spotify.status;
+		String st = LyricsWorldClient.statusText();
 		if (!st.isEmpty()) {
 			g.text(this.font, st, (this.width - this.font.width(st)) / 2, 26, 0xFFB0B0B0, false);
 		}

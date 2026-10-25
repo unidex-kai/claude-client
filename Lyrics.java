@@ -66,7 +66,7 @@ public final class Lyrics {
 		String get = "https://lrclib.net/api/get?track_name=" + enc(t.title())
 				+ "&artist_name=" + enc(t.firstArtist())
 				+ "&album_name=" + enc(t.album())
-				+ "&duration=" + (t.durationMs() / 1000);
+				+ (t.durationMs() > 0 ? "&duration=" + (t.durationMs() / 1000) : "");
 		String body = http(get);
 		if (body != null) {
 			List<Line> l = fromJson(JsonParser.parseString(body));

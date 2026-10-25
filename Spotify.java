@@ -83,7 +83,7 @@ public final class Spotify {
 	private static void poll() {
 		try {
 			Config c = Config.get();
-			if (!c.enabled || LyricsWorldClient.demo || c.refreshToken.isEmpty()) {
+			if (!c.enabled || c.source != 1 || LyricsWorldClient.demo || c.refreshToken.isEmpty()) {
 				return;
 			}
 			long now = System.currentTimeMillis();
