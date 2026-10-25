@@ -7,6 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Put files in the right folders
+        run: |
+          mkdir -p src/client/java/com/lyricsworld src/main/resources/assets/lyricsworld/lang
+          mv -f *.java src/client/java/com/lyricsworld/ || true
+          mv -f fabric.mod.json src/main/resources/ || true
+          mv -f en_us.json src/main/resources/assets/lyricsworld/lang/ || true
+          find src -type f
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -16,6 +23,11 @@ jobs:
           gradle-version: 9.8.2
       - name: Build
         run: gradle build --no-daemon
+      - name: Check the jar has the mod inside
+        run: |
+          unzip -l build/libs/lyricsworld-1.0.0.jar
+          unzip -l build/libs/lyricsworld-1.0.0.jar | grep LyricsHud.class
+          unzip -l build/libs/lyricsworld-1.0.0.jar | grep fabric.mod.json
       - uses: actions/upload-artifact@v4
         with:
           name: lyricsworld-jar
