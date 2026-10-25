@@ -1,0 +1,21 @@
+{
+	"schemaVersion": 1,
+	"id": "lyricsworld",
+	"version": "${version}",
+	"name": "Lyrics World",
+	"description": "Shows your Spotify lyrics as floating words around you in the world. Press K for settings.",
+	"authors": ["Ibrahim"],
+	"license": "CC0-1.0",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"com.lyricsworld.LyricsWorldClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
