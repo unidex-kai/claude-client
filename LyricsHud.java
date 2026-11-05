@@ -240,7 +240,7 @@ public final class LyricsHud implements HudElement {
 			if (scale < 0.15f) {
 				continue;
 			}
-			int tw = font.width(ch.text);
+			int tw = Fonts.width(font, ch.text, c.lyricsFont);
 			double halfW = tw * scale / 2.0 + 20;
 			if (sx < -halfW || sx > W + halfW || sy < -60 || sy > H + 60) {
 				continue;
@@ -261,12 +261,12 @@ public final class LyricsHud implements HudElement {
 			float y0 = -font.lineHeight / 2f;
 			if (c.glow) {
 				int glow = ((a8 / 3) << 24) | base;
-				g.text(font, ch.text, (int) x0 - 1, (int) y0, glow, false);
-				g.text(font, ch.text, (int) x0 + 1, (int) y0, glow, false);
-				g.text(font, ch.text, (int) x0, (int) y0 - 1, glow, false);
-				g.text(font, ch.text, (int) x0, (int) y0 + 1, glow, false);
+				Fonts.draw(g, font, ch.text, (int) x0 - 1, (int) y0, glow, false, c.lyricsFont);
+				Fonts.draw(g, font, ch.text, (int) x0 + 1, (int) y0, glow, false, c.lyricsFont);
+				Fonts.draw(g, font, ch.text, (int) x0, (int) y0 - 1, glow, false, c.lyricsFont);
+				Fonts.draw(g, font, ch.text, (int) x0, (int) y0 + 1, glow, false, c.lyricsFont);
 			}
-			g.text(font, ch.text, (int) x0, (int) y0, argb, false);
+			Fonts.draw(g, font, ch.text, (int) x0, (int) y0, argb, false, c.lyricsFont);
 			g.pose().popMatrix();
 		}
 	}
@@ -278,12 +278,13 @@ public final class LyricsHud implements HudElement {
 		g.fill(0, 0, (int) (W * prog), 1, 0xFF000000 | Config.COLOURS[c.colour]);
 		String label = "♪ " + t.title() + (t.artist().isEmpty() ? "" : "  ·  " + t.artist())
 				+ "   " + clock(pos) + " / " + clock(t.durationMs());
-		int tw = font.width(label);
-		g.text(font, label, (W - tw) / 2, 4, 0xCCFFFFFF, true);
+		int f = c.lyricsFont;
+		int tw = Fonts.width(font, label, f);
+		Fonts.draw(g, font, label, (W - tw) / 2, 4, 0xCCFFFFFF, true, f);
 		if (!LyricsWorldClient.demo && Lyrics.forId.equals(t.id()) && Lyrics.lines.isEmpty()) {
 			String n = Lyrics.note;
 			if (!n.isEmpty()) {
-				g.text(font, n, (W - font.width(n)) / 2, 16, 0x99FFFFFF, true);
+				Fonts.draw(g, font, n, (W - Fonts.width(font, n, f)) / 2, 16, 0x99FFFFFF, true, f);
 			}
 		}
 	}

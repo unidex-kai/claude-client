@@ -21,6 +21,8 @@ public final class Config {
 	public static final String[] INTENSITY_NAMES = {"Calm", "Normal", "Hype"};
 	public static final String[] SOURCE_NAMES = {"Windows media (no login)", "Spotify login"};
 	public static final String[] PLACEMENT_NAMES = {"Scattered around you", "In front of you"};
+	/** Index 0 is Minecraft's own font. The others are bundled (see Fonts.java and the font-*.json files). */
+	public static final String[] FONT_NAMES = {"Minecraft", "Poppins", "Pixel", "Orbitron"};
 
 	// ---- settings ----
 	public boolean enabled = true;
@@ -38,6 +40,12 @@ public final class Config {
 	public int syncOffsetMs = 0;
 	/** 0 = Windows media controls (no login), 1 = Spotify login. */
 	public int source = 0;
+	/** Font used for the lyrics in the world and the now-playing bar. */
+	public int lyricsFont = 0;
+	/** Font used for the settings menu. */
+	public int menuFont = 1;
+	/** Turn off to make the menu snap instantly (no sliding, fading or particles). */
+	public boolean menuAnimations = true;
 
 	// ---- spotify (stored only on this PC) ----
 	public String clientId = "";

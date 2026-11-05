@@ -1,0 +1,15 @@
+{
+	"providers": [
+		{
+			"type": "ttf",
+			"file": "lyricsworld:pixel.ttf",
+			"shift": [0.0, 0.0],
+			"size": 8.0,
+			"oversample": 1.0
+		},
+		{
+			"type": "reference",
+			"id": "minecraft:default"
+		}
+	]
+}
