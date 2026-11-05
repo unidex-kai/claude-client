@@ -9,10 +9,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Put files in the right folders
         run: |
-          mkdir -p src/client/java/com/lyricsworld src/main/resources/assets/lyricsworld/lang
+          mkdir -p src/client/java/com/lyricsworld src/main/resources/assets/lyricsworld/lang src/main/resources/assets/lyricsworld/font
           mv -f *.java src/client/java/com/lyricsworld/ || true
           mv -f fabric.mod.json src/main/resources/ || true
           mv -f en_us.json src/main/resources/assets/lyricsworld/lang/ || true
+          mv -f *.ttf src/main/resources/assets/lyricsworld/font/ || true
+          for f in font-*.json; do mv -f "$f" "src/main/resources/assets/lyricsworld/font/${f#font-}" || true; done
           find src -type f
       - uses: actions/setup-java@v4
         with:
@@ -25,10 +27,13 @@ jobs:
         run: gradle build --no-daemon
       - name: Check the jar has the mod inside
         run: |
-          unzip -l build/libs/lyricsworld-1.0.0.jar
-          unzip -l build/libs/lyricsworld-1.0.0.jar | grep LyricsHud.class
-          unzip -l build/libs/lyricsworld-1.0.0.jar | grep fabric.mod.json
+          unzip -l build/libs/lyricsworld-1.1.0.jar
+          unzip -l build/libs/lyricsworld-1.1.0.jar | grep LyricsHud.class
+          unzip -l build/libs/lyricsworld-1.1.0.jar | grep SettingsScreen.class
+          unzip -l build/libs/lyricsworld-1.1.0.jar | grep fabric.mod.json
+          unzip -l build/libs/lyricsworld-1.1.0.jar | grep "font/poppins.json"
+          unzip -l build/libs/lyricsworld-1.1.0.jar | grep "font/poppins.ttf"
       - uses: actions/upload-artifact@v4
         with:
           name: lyricsworld-jar
-          path: build/libs/lyricsworld-1.0.0.jar
+          path: build/libs/lyricsworld-1.1.0.jar
